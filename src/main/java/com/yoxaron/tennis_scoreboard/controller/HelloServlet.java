@@ -1,5 +1,6 @@
 package com.yoxaron.tennis_scoreboard.controller;
 
+import com.yoxaron.tennis_scoreboard.utils.ViewResolver;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -13,6 +14,6 @@ public class HelloServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/index.jsp").forward(req, resp);
+        req.getRequestDispatcher(ViewResolver.getPath("index")).forward(req, resp);
     }
 }

@@ -28,6 +28,12 @@ public class MatchScoreServlet extends HttpServlet {
 //        Записываем законченный матч в SQL базу данных
 //        Рендерим финальный счёт
 
+//        Обрабатывает POST запросы к /match-score
+//        Через OngoingMatchesService получает экземпляр класса Match для текущего матча, который является моделью/частью модели MatchScoreModel
+//        Через MatchScoreCalculationService обновляет счёт в матче
+//        Если матч закончился - через FinishedMatchesPersistenceService сохраняет законченный матч в базу данных
+//        С помощью JSP шаблона отображает MatchScoreModel в виде отрендеренного HTML
+
         super.doPost(req, resp);
     }
 }

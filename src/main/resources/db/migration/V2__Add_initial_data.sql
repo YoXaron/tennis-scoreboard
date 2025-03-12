@@ -1,11 +1,11 @@
 insert into players (name)
-values ('John'),
-       ('Alice'),
-       ('Bob'),
-       ('Emma'),
-       ('Michael');
+values ('Carlos Alcaraz'),
+       ('Daniil Medvedev'),
+       ('Novak Djokovic'),
+       ('Rafael Nadal'),
+       ('Jannik Sinner');
 
-insert into matches (player1, player2, winner)
+insert into matches (player1_id, player2_id, winner_id)
 values (1, 2, 1),
        (3, 4, 4),
        (1, 3, 3),

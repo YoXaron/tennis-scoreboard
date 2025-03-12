@@ -1,16 +1,16 @@
 create table players
 (
-    id   serial primary key,
-    name varchar(256) unique
+    id   bigserial primary key,
+    name varchar(256) not null unique
 );
 
 create table matches
 (
-    id      serial primary key,
-    player1 int not null,
-    player2 int not null,
-    winner  int not null,
-    foreign key (player1) references players (id),
-    foreign key (player2) references players (id),
-    foreign key (winner) references players (id)
+    id         bigserial primary key,
+    player1_id int not null,
+    player2_id int not null,
+    winner_id  int not null,
+    foreign key (player1_id) references players (id),
+    foreign key (player2_id) references players (id),
+    foreign key (winner_id) references players (id)
 );

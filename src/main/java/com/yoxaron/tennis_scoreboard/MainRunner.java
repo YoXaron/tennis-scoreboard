@@ -1,6 +1,6 @@
 package com.yoxaron.tennis_scoreboard;
 
-import com.yoxaron.tennis_scoreboard.entity.Player;
+import com.yoxaron.tennis_scoreboard.model.entity.Player;
 import com.yoxaron.tennis_scoreboard.utils.HibernateUtil;
 import io.github.cdimascio.dotenv.Dotenv;
 import org.flywaydb.core.Flyway;
@@ -24,7 +24,6 @@ public class MainRunner {
             for (Player player : players) {
                 System.out.println(player);
             }
-
         }
     }
 }

@@ -4,7 +4,4 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
-  <listener>
-    <listener-class>com.yoxaron.tennis_scoreboard.listener.FlywayInitializer</listener-class>
-  </listener>
 </web-app>

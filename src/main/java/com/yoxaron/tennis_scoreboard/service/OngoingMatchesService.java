@@ -1,7 +1,7 @@
 package com.yoxaron.tennis_scoreboard.service;
 
 import com.yoxaron.tennis_scoreboard.dto.PlayerDto;
-import com.yoxaron.tennis_scoreboard.model.OngoingMatch;
+import com.yoxaron.tennis_scoreboard.model.domain.OngoingMatch;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -19,13 +19,17 @@ public class OngoingMatchesService {
         return INSTANCE;
     }
 
-    public OngoingMatch createOngoingMatch(PlayerDto firstPlayer, PlayerDto secondPlayer) {
-        OngoingMatch ongoingMatch = new OngoingMatch(UUID.randomUUID(), firstPlayer, secondPlayer);
-        ongoingMatches.put(ongoingMatch.getUuid(), ongoingMatch);
-        return ongoingMatch;
+    public OngoingMatch createOngoingMatch(PlayerDto playerOne, PlayerDto playerTwo) {
+        OngoingMatch match = new OngoingMatch(playerOne, playerTwo);
+        ongoingMatches.put(match.getUuid(), match);
+        return match;
     }
 
-    public OngoingMatch getOngoingMatch(UUID uuid) {
+    public OngoingMatch get(UUID uuid) {
         return ongoingMatches.get(uuid);
+    }
+
+    public void remove(UUID uuid) {
+        ongoingMatches.remove(uuid);
     }
 }

@@ -1,25 +1,17 @@
+<%@ page import="com.yoxaron.tennis_scoreboard.model.domain.OngoingMatch" %>
+<%@ page import="com.yoxaron.tennis_scoreboard.utils.PointsFormatter" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
     <title>Match Score</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 </head>
 <body>
-<!--Таблица с именами игроков, текущим счётом-->
-<!--Формы и кнопки для действий - “игрок 1 выиграл текущее очко”, “игрок 2 выиграл текущее очко”-->
-<!--Нажатие кнопок приводит к POST запросу по адресу /match-score?uuid=$match_id, -->
-<!--в полях отправленной формы содержится айди выигравшего очко игрока-->
-
-HELLO MATCH SCORE
-
-
-<p>${requestScope.ongoingMatch}</p>
-
 <main>
     <div class="container">
         <h1>Current match</h1>
-        <div class="current-match-image"></div>
         <section class="score">
             <table class="table">
                 <thead class="result">
@@ -32,21 +24,39 @@ HELLO MATCH SCORE
                 </thead>
                 <tbody>
                 <tr class="player1">
-                    <td class="table-text">${requestScope.ongoingMatch.getPlayer1().name()}</td>
-                    <td class="table-text">2</td>
-                    <td class="table-text">4</td>
-                    <td class="table-text">40</td>
+                    <td class="table-text">${requestScope.ongoingMatch.playerOne.name()}</td>
+                    <td class="table-text">${requestScope.ongoingMatch.playerOneScore.sets}</td>
+                    <td class="table-text">${requestScope.ongoingMatch.playerOneScore.games}</td>
                     <td class="table-text">
-                        <div class="score-btn">Score</div>
+                        <%= PointsFormatter.format(
+                                ((OngoingMatch) request.getAttribute("ongoingMatch")).getPlayerOneScore(),
+                                ((OngoingMatch) request.getAttribute("ongoingMatch")).getPlayerTwoScore())
+                        %>
+                    </td>
+                    <td class="table-text">
+                        <form action="${pageContext.request.contextPath}/match-score" method="post">
+                            <input type="hidden" name="uuid" value="${requestScope.ongoingMatch.uuid}"/>
+                            <input type="hidden" name="winnerId" value="${requestScope.ongoingMatch.playerOne.id()}"/>
+                            <button type="submit" class="score-btn">Score</button>
+                        </form>
                     </td>
                 </tr>
                 <tr class="player2">
-                    <td class="table-text">Roger Federer</td>
-                    <td class="table-text">2</td>
-                    <td class="table-text">3</td>
-                    <td class="table-text">15</td>
+                    <td class="table-text">${requestScope.ongoingMatch.playerTwo.name()}</td>
+                    <td class="table-text">${requestScope.ongoingMatch.playerTwoScore.sets}</td>
+                    <td class="table-text">${requestScope.ongoingMatch.playerTwoScore.games}</td>
                     <td class="table-text">
-                        <div class="score-btn">Score</div>
+                        <%= PointsFormatter.format(
+                                ((OngoingMatch) request.getAttribute("ongoingMatch")).getPlayerTwoScore(),
+                                ((OngoingMatch) request.getAttribute("ongoingMatch")).getPlayerOneScore())
+                        %>
+                    </td>
+                    <td class="table-text">
+                        <form action="${pageContext.request.contextPath}/match-score" method="post">
+                            <input type="hidden" name="uuid" value="${requestScope.ongoingMatch.uuid}"/>
+                            <input type="hidden" name="winnerId" value="${requestScope.ongoingMatch.playerTwo.id()}"/>
+                            <button type="submit" class="score-btn">Score</button>
+                        </form>
                     </td>
                 </tr>
                 </tbody>

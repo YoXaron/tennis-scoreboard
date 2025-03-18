@@ -1,15 +1,14 @@
 package com.yoxaron.tennis_scoreboard.model.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode(of = "name")
+@Builder
 @Entity
 @Table(name = "players")
 public class Player implements BaseEntity<Long> {

@@ -7,9 +7,9 @@ create table players
 create table matches
 (
     id         bigserial primary key,
-    player1_id int not null,
-    player2_id int not null,
-    winner_id  int not null,
+    player1_id bigint not null,
+    player2_id bigint not null,
+    winner_id  bigint not null,
     foreign key (player1_id) references players (id),
     foreign key (player2_id) references players (id),
     foreign key (winner_id) references players (id)

@@ -1,4 +1,4 @@
 package com.yoxaron.tennis_scoreboard.model.score;
 
-public class MatchScoreModel {
+public abstract class GameScore<T> extends Score<T> {
 }

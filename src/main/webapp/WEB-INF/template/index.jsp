@@ -2,7 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <head>
     <meta charset="UTF-8">
-    <title>Index</title>
+    <title>New Match</title>
+    <%--    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">--%>
 </head>
 
 <body>
@@ -12,12 +13,12 @@
         <p>Manage your tennis matches, record results, and track rankings</p>
         <div class="welcome-image"></div>
         <div class="form-container center">
-            <a class="homepage-action-button" href="#">
+            <a class="homepage-action-button" href="/new-match">
                 <button class="btn start-match">
                     Start a new match
                 </button>
             </a>
-            <a class="homepage-action-button" href="#">
+            <a class="homepage-action-button" href="/matches">
                 <button class="btn view-results">
                     View match results
                 </button>
@@ -25,9 +26,6 @@
         </div>
     </div>
 </main>
-
-<!--кнопка на страницу нового матча-->
-<!--кнопка на страницу завершенных матчей-->
 
 </body>
 </html>

@@ -25,7 +25,7 @@ public class NewMatchServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         var pName1 = req.getParameter("playerOne");
         var pName2 = req.getParameter("playerTwo");
 

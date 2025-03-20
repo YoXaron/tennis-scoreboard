@@ -13,13 +13,13 @@
         <h1>Start new match</h1>
         <div class="form-container center">
             <form method="post" action="new-match">
-                <c:if test="${not empty errorMessage}">
-                    <p class="error-message">${errorMessage}</p>
-                </c:if>
                 <label class="label-player" for="playerOne">Player one</label>
                 <input class="input-player" id="playerOne" name="playerOne" placeholder="Name" type="text" required>
                 <label class="label-player" for="playerTwo">Player two</label>
                 <input class="input-player" id="playerTwo" name="playerTwo" placeholder="Name" type="text" required>
+                <c:if test="${not empty error}">
+                    <p class="error-message">${error}</p>
+                </c:if>
                 <input class="form-button" type="submit" value="Start">
             </form>
         </div>

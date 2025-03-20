@@ -121,16 +121,6 @@ footer {
     width: 100%;
 }
 
-/* Welcome Section */
-.welcome-image {
-    border-radius: 30px;
-    margin-top: 20px;
-    background-image: url('../images/welcome_image.png');
-    background-position: center;
-    min-height: 50vh;
-    background-size: cover;
-}
-
 .view-results, .start-match {
     border-radius: 23px;
     cursor: pointer;
@@ -155,17 +145,6 @@ footer {
 /* Additional Styles for Dropdown Navigation */
 .nav-toggle {
     display: none;
-}
-
-/* New Match */
-
-.new-match-image {
-    border-radius: 30px;
-    margin: 20px 0;
-    background-image: url('../images/racket.png');
-    height: 503px;
-    background-size: cover;
-    background-position: center;
 }
 
 .form-container {
@@ -216,23 +195,8 @@ footer {
     cursor: pointer;
 }
 
-/* Current match */
-
-.current-match-image {
-    border-radius: 30px;
-    margin-top: 20px;
-    background-image: url('../images/scorekeeper.png');
-    background-position: center;
-    min-height: 30vh;
-    background-size: cover;
-}
-
 .score-container {
     position: relative;
-}
-
-.score-img {
-    border-radius: 15px;
 }
 
 .score-text {

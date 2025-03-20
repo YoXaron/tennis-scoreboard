@@ -54,6 +54,11 @@ public class MatchScoreCalculationService {
             winnerScore.dropPoints();
             loserScore.dropPoints();
 
+            // Проверяем тай-брейк сразу после обновления количества геймов
+            if (winnerScore.getGames() == 6 && loserScore.getGames() == 6) {
+                match.setTiebreak(true);
+            }
+
             if (isSetFinished(winnerScore, loserScore)) {
                 winnerScore.increaseSets();
                 winnerScore.dropGames();
@@ -74,8 +79,15 @@ public class MatchScoreCalculationService {
     }
 
     private boolean isTiebreak(PlayerScore score1, PlayerScore score2, OngoingMatch match) {
+        // Если тай-брейк уже установлен, просто возвращаем true
+        if (match.isTiebreak()) {
+            return true;
+        }
+        // В противном случае проверяем условие
         boolean isTiebreak = score1.getGames() == 6 && score2.getGames() == 6;
-        match.setTiebreak(isTiebreak);
+        if (isTiebreak) {
+            match.setTiebreak(isTiebreak);
+        }
         return isTiebreak;
     }
 

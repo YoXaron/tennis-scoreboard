@@ -32,12 +32,10 @@ public class MatchScoreCalculationService {
             addPoints(playerTwoScore, playerOneScore, match);
         }
 
-        // Проверяем, закончился ли матч
         checkMatchEnd(match);
     }
 
     private void addPoints(PlayerScore winnerScore, PlayerScore loserScore, OngoingMatch match) {
-        // Проверяем, идет ли тайбрейк
         if (isTiebreak(winnerScore, loserScore, match)) {
             processTiebreakPoint(winnerScore, loserScore, match);
         } else {
@@ -48,17 +46,14 @@ public class MatchScoreCalculationService {
     private void processRegularPoint(PlayerScore winnerScore, PlayerScore loserScore, OngoingMatch match) {
         winnerScore.increasePoints();
 
-        // Преобразуем числовое значение очков в теннисный формат
         int winnerPoints = winnerScore.getPoints();
         int loserPoints = loserScore.getPoints();
 
-        // Проверка на завершение гейма
         if (winnerPoints >= POINTS_TO_GAME && winnerPoints - loserPoints >= 2) {
             winnerScore.increaseGames();
             winnerScore.dropPoints();
             loserScore.dropPoints();
 
-            // Проверка на завершение сета
             if (isSetFinished(winnerScore, loserScore)) {
                 winnerScore.increaseSets();
                 winnerScore.dropGames();
@@ -71,17 +66,11 @@ public class MatchScoreCalculationService {
         int winnerGames = winnerScore.getGames();
         int loserGames = loserScore.getGames();
 
-        // Обычная победа в сете (6 геймов с разницей в 2 гейма)
         if (winnerGames >= GAMES_TO_SET && winnerGames - loserGames >= 2) {
             return true;
         }
 
-        // Победа в тайбрейке (7-6)
-        if (winnerGames == 7 && loserGames == 6) {
-            return true;
-        }
-
-        return false;
+        return winnerGames == 7 && loserGames == 6;
     }
 
     private boolean isTiebreak(PlayerScore score1, PlayerScore score2, OngoingMatch match) {
@@ -93,16 +82,13 @@ public class MatchScoreCalculationService {
     private void processTiebreakPoint(PlayerScore winnerScore, PlayerScore loserScore, OngoingMatch match) {
         winnerScore.increasePoints();
 
-        // В тайбрейке очки считаются по-другому: 1, 2, 3... (не 15, 30, 40)
         int winnerPoints = winnerScore.getPoints();
         int loserPoints = loserScore.getPoints();
 
-        // Для победы в тайбрейке нужно набрать минимум 7 очков с разницей в 2 очка
         if (winnerPoints >= TIEBREAK_POINTS && winnerPoints - loserPoints >= TIEBREAK_DIFF) {
-            winnerScore.increaseGames(); // Увеличиваем количество геймов (становится 7-6)
-            winnerScore.increaseSets();  // Увеличиваем количество сетов
+            winnerScore.increaseGames();
+            winnerScore.increaseSets();
 
-            // Сбрасываем очки и геймы
             winnerScore.dropPoints();
             loserScore.dropPoints();
             winnerScore.dropGames();
@@ -117,7 +103,6 @@ public class MatchScoreCalculationService {
         if (playerOneScore.getSets() >= SETS_TO_MATCH || playerTwoScore.getSets() >= SETS_TO_MATCH) {
             match.setFinished(true);
 
-            // Здесь можно добавить определение победителя, если требуется
             if (playerOneScore.getSets() >= SETS_TO_MATCH) {
                 match.setWinner(match.getPlayerOne());
             } else {

@@ -7,14 +7,10 @@ import java.util.Optional;
 
 public class PlayerRepository extends CrudRepository<Long, Player> {
 
-    private final static PlayerRepository INSTANCE = new PlayerRepository();
+    private static final PlayerRepository INSTANCE = new PlayerRepository();
 
     private PlayerRepository() {
         super(Player.class);
-    }
-
-    public static PlayerRepository getInstance() {
-        return INSTANCE;
     }
 
     public Optional<Player> findByName(String name) {
@@ -23,5 +19,9 @@ public class PlayerRepository extends CrudRepository<Long, Player> {
                     .setParameter("name", name)
                     .uniqueResultOptional();
         }
+    }
+
+    public static PlayerRepository getInstance() {
+        return INSTANCE;
     }
 }

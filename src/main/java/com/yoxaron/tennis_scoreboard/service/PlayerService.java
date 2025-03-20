@@ -21,12 +21,12 @@ public class PlayerService {
 
     public PlayerDto findOrSaveByName(String name) {
         Optional<Player> maybePlayer = playerRepository.findByName(name);
+
         if (maybePlayer.isEmpty()) {
             var playerToSave = Player.builder().name(name).build();
             return PlayerMapper.INSTANCE.toDto(playerRepository.save(playerToSave));
         } else {
             return PlayerMapper.INSTANCE.toDto(maybePlayer.get());
         }
-
     }
 }

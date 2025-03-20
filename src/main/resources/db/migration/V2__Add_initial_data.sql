@@ -3,7 +3,12 @@ values ('Carlos Alcaraz'),
        ('Daniil Medvedev'),
        ('Novak Djokovic'),
        ('Rafael Nadal'),
-       ('Jannik Sinner');
+       ('Jannik Sinner'),
+       ('Roger Federer'),
+       ('Andy Murray'),
+       ('Alexander Zverev'),
+       ('Stefanos Tsitsipas'),
+       ('Holger Rune');
 
 insert into matches (player1_id, player2_id, winner_id)
 values (1, 2, 1),
@@ -13,4 +18,16 @@ values (1, 2, 1),
        (5, 1, 5),
        (2, 3, 3),
        (4, 5, 4),
-       (1, 4, 1);
+       (1, 4, 1),
+       (6, 7, 6),
+       (8, 9, 8),
+       (7, 10, 10),
+       (6, 1, 6),
+       (3, 8, 3),
+       (5, 9, 5),
+       (2, 10, 2),
+       (4, 6, 4),
+       (7, 8, 7),
+       (9, 10, 9),
+       (6, 3, 6),
+       (1, 5, 1);

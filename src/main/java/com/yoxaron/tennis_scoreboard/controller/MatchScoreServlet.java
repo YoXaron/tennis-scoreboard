@@ -1,6 +1,6 @@
 package com.yoxaron.tennis_scoreboard.controller;
 
-import com.yoxaron.tennis_scoreboard.model.domain.OngoingMatch;
+import com.yoxaron.tennis_scoreboard.service.FinishedMatchesPersistenceService;
 import com.yoxaron.tennis_scoreboard.service.MatchScoreCalculationService;
 import com.yoxaron.tennis_scoreboard.service.OngoingMatchesService;
 import jakarta.servlet.ServletException;
@@ -19,27 +19,30 @@ public class MatchScoreServlet extends HttpServlet {
 
     private final OngoingMatchesService ongoingMatchesService = OngoingMatchesService.getInstance();
     private final MatchScoreCalculationService calculationService = MatchScoreCalculationService.getInstance();
+    private final FinishedMatchesPersistenceService finishedMatchesPersistenceService = FinishedMatchesPersistenceService.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String matchUuid = req.getParameter("uuid");
-        OngoingMatch ongoingMatch = ongoingMatchesService.get(UUID.fromString(matchUuid));
+        var matchUuid = req.getParameter("uuid");
+        var ongoingMatch = ongoingMatchesService.get(UUID.fromString(matchUuid));
         req.setAttribute("ongoingMatch", ongoingMatch);
         req.getRequestDispatcher(getPath("match-score")).forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        UUID uuid = UUID.fromString(req.getParameter("uuid"));
-        Long playerId = Long.valueOf(req.getParameter("winnerId"));
+        var uuid = UUID.fromString(req.getParameter("uuid"));
+        var winnerId = Long.valueOf(req.getParameter("winnerId"));
 
-        OngoingMatch ongoingMatch = ongoingMatchesService.get(uuid);
+        var ongoingMatch = ongoingMatchesService.get(uuid);
 
-        calculationService.updateScore(ongoingMatch, playerId);
+        calculationService.updateScore(ongoingMatch, winnerId);
 
         if (ongoingMatch.isFinished()) {
             ongoingMatchesService.remove(ongoingMatch.getUuid());
-            req.setAttribute("ongoingMatch", ongoingMatch);
+            var matchDto = finishedMatchesPersistenceService.save(ongoingMatch);
+            req.setAttribute("finishedMatch", matchDto);
+            req.getRequestDispatcher(getPath("finished-match")).forward(req, resp);
         }
 
         resp.sendRedirect("/match-score?uuid=" + uuid);

@@ -1,5 +1,4 @@
 package com.yoxaron.tennis_scoreboard.dto;
 
-public class MatchDto {
-
+public record MatchDto(PlayerDto playerOne, PlayerDto playerTwo, PlayerDto winner) {
 }

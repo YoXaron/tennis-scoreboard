@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 </head>
 <body>
+<jsp:include page="header.jsp"/>
 <main>
     <div class="container">
         <h1>Current match</h1>

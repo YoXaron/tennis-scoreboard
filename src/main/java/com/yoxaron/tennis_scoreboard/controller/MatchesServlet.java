@@ -28,7 +28,7 @@ public class MatchesServlet extends HttpServlet {
         List<MatchDto> matches = persistenceService.find(name, page, PAGE_SIZE);
         int totalMatches = persistenceService.countMatches(name);
 
-        int totalPages = totalMatches / PAGE_SIZE + 1;
+        int totalPages = (totalMatches % PAGE_SIZE == 0) ? totalMatches / PAGE_SIZE : totalMatches / PAGE_SIZE + 1;
 
         req.setAttribute("matches", matches);
         req.setAttribute("totalPages", totalPages);

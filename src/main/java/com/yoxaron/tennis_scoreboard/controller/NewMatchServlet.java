@@ -31,8 +31,8 @@ public class NewMatchServlet extends HttpServlet {
 
         ValidationUtil.checkNames(pName1, pName2);
 
-        var player1 = playerService.findOrSaveByName(pName1.toUpperCase());
-        var player2 = playerService.findOrSaveByName(pName2.toUpperCase());
+        var player1 = playerService.saveOrFindByName(pName1.toUpperCase());
+        var player2 = playerService.saveOrFindByName(pName2.toUpperCase());
 
         var ongoingMatch = ongoingMatchesService.createOngoingMatch(player1, player2);
 

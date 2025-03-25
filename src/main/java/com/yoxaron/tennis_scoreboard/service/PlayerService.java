@@ -4,6 +4,7 @@ import com.yoxaron.tennis_scoreboard.dto.PlayerDto;
 import com.yoxaron.tennis_scoreboard.mapper.PlayerMapper;
 import com.yoxaron.tennis_scoreboard.model.entity.Player;
 import com.yoxaron.tennis_scoreboard.repository.PlayerRepository;
+import jakarta.persistence.PersistenceException;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
@@ -19,14 +20,16 @@ public class PlayerService {
         return INSTANCE;
     }
 
-    public PlayerDto findOrSaveByName(String name) {
-        Optional<Player> maybePlayer = playerRepository.findByName(name);
-
-        if (maybePlayer.isEmpty()) {
+    public PlayerDto saveOrFindByName(String name) {
+        try {
             var playerToSave = Player.builder().name(name).build();
             return PlayerMapper.INSTANCE.toDto(playerRepository.save(playerToSave));
-        } else {
-            return PlayerMapper.INSTANCE.toDto(maybePlayer.get());
+        } catch (PersistenceException e) {
+            Optional<Player> maybePlayer = playerRepository.findByName(name);
+            if (maybePlayer.isPresent()) {
+                return PlayerMapper.INSTANCE.toDto(maybePlayer.get());
+            }
+            throw e;
         }
     }
 }
